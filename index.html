@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>mpg</title>
+  <link rel="stylesheet" href="./style.css">
+
+<meta name="viewport" content="width=device-width">
+</head>
+<body>
+	<form>
+		<h3>Distance travelled</h3>
+		<input type="number" id="distanceMiles"><label> miles</label>
+		<input type="number" id="distanceKM"><label> km</label>
+	</form>
+	<form>
+		<h3>Fuel consumption</h3>
+		<input type="number" id="mpg"><label> MPG</label>
+		<input type="number" id="kml"><label> km/L</label>
+		<input type="number" id="l100"><label> L/100km</label>
+	</form>
+	<form>
+		<h3>Fuel consumed</h3>
+		<input type="number" id="galsConsumed"><label> UK Gallons</label>
+		<input type="number" id="ltrsConsumed"><label> Litres</label>
+	</form>
+	<form>
+		<h3>Price per Litre</h3>
+		<input type="number" id="priceLtr">
+		<label>			
+			<select name="currency" id="currency">
+				<option value="(£)p">(£)p</option>
+				<option value="(€)c">(€)c</option>
+			</select>
+		</label>
+	</form>
+	<form>
+		<h3>Journey Cost</h3>
+		<input type="number" id="journeyCost"> <label id="currencyLabel">(£)p</label>
+	</form>
+
+<script  src="./script.js"></script>
+</body>
+</html>
