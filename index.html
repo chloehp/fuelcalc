@@ -10,33 +10,32 @@
 <body>
 	<form>
 		<h3>Distance travelled</h3>
-		<input type="number" id="distanceMiles"><label> miles</label>
-		<input type="number" id="distanceKM"><label> km</label>
-	</form>
-	<form>
+		<input type="checkbox" class="checkbox" id="locktravelled"/>
+		<input type="number" id="distanceMiles" step="0.1"><label> miles</label>
+		<input type="number" id="distanceKM" step="0.1"><label> km</label>
+
 		<h3>Fuel consumption</h3>
+		<input type="checkbox" class="checkbox" id="lockconsumption"/>
 		<input type="number" id="mpg"><label> MPG</label>
-		<input type="number" id="kml"><label> km/L</label>
-		<input type="number" id="l100"><label> L/100km</label>
-	</form>
-	<form>
+		<input type="number" id="kml" step="0.1"><label> km/L</label>
+		<input type="number" id="l100" step="0.1"><label> L/100km</label>
+
 		<h3>Fuel consumed</h3>
-		<input type="number" id="galsConsumed"><label> UK Gallons</label>
-		<input type="number" id="ltrsConsumed"><label> Litres</label>
-	</form>
-	<form>
+		<input type="checkbox" class="checkbox" id="lockconsumed"/>
+		<input type="number" id="galsConsumed" step="0.1"><label> UK Gallons</label>
+		<input type="number" id="ltrsConsumed" step="0.1"><label> Litres</label>
+
 		<h3>Price per Litre</h3>
-		<input type="number" id="priceLtr">
+		<input type="number" id="priceLtr" value = "177">
 		<label>			
 			<select name="currency" id="currency">
-				<option value="(£)p">(£)p</option>
-				<option value="(€)c">(€)c</option>
+				<option value="£">(£)p</option>
+				<option value="€">(€)c</option>
 			</select>
 		</label>
-	</form>
-	<form>
+
 		<h3>Journey Cost</h3>
-		<input type="number" id="journeyCost"> <label id="currencyLabel">(£)p</label>
+		<label id="currencyLabel">£</label> <input type="number" id="journeyCost" step="0.01">
 	</form>
 
 <script  src="./script.js"></script>
