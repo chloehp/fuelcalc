@@ -1,5 +1,6 @@
 let distanceMiles = document.getElementById("distanceMiles");
 let distanceKM = document.getElementById("distanceKM");
+let journeys = document.getElementById("journeys");
 
 let mpg = document.getElementById("mpg");
 let kml = document.getElementById("kml");
@@ -24,16 +25,18 @@ function ukGalToLtr(gal) {return (gal * 4.54609)}
 function ltrToUkGal(ltr) {return (ltr * 0.2199693)}
 
 function fuelConsumed() {
-    ltrsConsumed.value = distanceKM.value / kml.value;
+    ltrsConsumed.value = (distanceKM.value / kml.value) * journeys.value;
     galsConsumed.value = ltrToUkGal(ltrsConsumed.value);
     cost();
+    format();
 }
 
 function fuelConsumption() {
-    kml.value = distanceKM.value / ltrsConsumed.value;
+    kml.value = distanceKM.value / (ltrsConsumed.value / journeys.value);
     mpg.value = (ukGalToLtr(1) / milesToKM(1)) * kml.value;
     l100.value = 100 / kml.value;
     cost();
+    format();
 }
 
 function distanceTravelled() {
@@ -42,8 +45,16 @@ function distanceTravelled() {
 }
 
 function cost() {
-    const cent = Math.ceil(ltrsConsumed.value * priceLtr.value);        // rounded up
+    const cent = Math.ceil(ltrsConsumed.value * priceLtr.value);        // rounded up to the nearest cent
     journeyCost.value = cent / 100;
+}
+
+function format() {
+    const values = [distanceMiles, distanceKM, mpg, kml, l100, galsConsumed, ltrsConsumed];
+    for (let i = 0; i < values.length; i++) {
+        const a = Math.round(values[i].value * 1000000);
+        values[i].value = a / 1000000;
+    }
 }
 
 // Inputs
@@ -57,6 +68,8 @@ distanceKM.oninput = function(){
     distanceMiles.value = KMtoMiles(distanceKM.value);
     fuelConsumed();
 }
+
+journeys.oninput = function(){fuelConsumed()}
 
 mpg.oninput = function(){
     kml.value = (milesToKM(1) / ukGalToLtr(1)) * mpg.value;
@@ -91,8 +104,10 @@ currency.onchange = function(){
 
 priceLtr.oninput = function(){cost()}
 
+/* boken
 journeyCost.oninput = function(){
     ltrsConsumed.value = journeyCost.value * (priceLtr.value / 100);
     galsConsumed.value = ltrToUkGal(ltrsConsumed.value);
     distanceTravelled();
 }
+*/

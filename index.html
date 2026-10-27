@@ -2,17 +2,19 @@
 <html lang="en" >
 <head>
   <meta charset="UTF-8">
-  <title>mpg</title>
+  <title>UK/EU Fuel cost calculator</title>
   <link rel="stylesheet" href="./style.css">
 
 <meta name="viewport" content="width=device-width">
 </head>
 <body>
 	<form>
+		<p>UK/EU Travel fuel Calculator</p>
 		<h3>Distance travelled</h3>
 		<input type="checkbox" class="checkbox" id="locktravelled"/>
 		<input type="number" id="distanceMiles" step="0.1"><label> miles</label>
 		<input type="number" id="distanceKM" step="0.1"><label> km</label>
+		<label> ⨉ </label><input type="number" id="journeys" value="1">
 
 		<h3>Fuel consumption</h3>
 		<input type="checkbox" class="checkbox" id="lockconsumption"/>
@@ -35,7 +37,7 @@
 		</label>
 
 		<h3>Journey Cost</h3>
-		<label id="currencyLabel">£</label> <input type="number" id="journeyCost" step="0.01">
+		<label id="currencyLabel">£</label> <input type="number" id="journeyCost" step="0.01" readonly>
 	</form>
 
 <script  src="./script.js"></script>
