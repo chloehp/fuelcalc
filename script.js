@@ -7,16 +7,16 @@ let kml = document.getElementById("kml");
 //let mpl = 0;
 let l100 = document.getElementById("l100");
 
-let galsConsumed = document.getElementById("galsConsumed");
-let ltrsConsumed = document.getElementById("ltrsConsumed");
-
-let currency = document.getElementById("currency");
-let priceLtr = document.getElementById("priceLtr");
-let journeyCost = document.getElementById("journeyCost");
-
-let locktravelled = document.getElementById("locktravelled");
-let lockconsumption = document.getElementById("lockconsumption");
-let lockconsumed = document.getElementById("lockconsumed");
+const galsConsumed = document.getElementById("galsConsumed");
+const ltrsConsumed = document.getElementById("ltrsConsumed");
+const currency = document.getElementById("currency");
+const fuelType = document.getElementById("fueltype");
+const priceLtr = document.getElementById("priceLtr");
+const journeyCost = document.getElementById("journeyCost");
+const CO2cost = document.getElementById("co2cost");
+const locktravelled = document.getElementById("locktravelled");
+const lockconsumption = document.getElementById("lockconsumption");
+const lockconsumed = document.getElementById("lockconsumed");
 
 function milesToKM(miles) {return (miles * 1.609344)}
 function KMtoMiles(km) {return (km * 0.6213712)}
@@ -28,7 +28,6 @@ function fuelConsumed() {
     ltrsConsumed.value = (distanceKM.value / kml.value) * journeys.value;
     galsConsumed.value = ltrToUkGal(ltrsConsumed.value);
     cost();
-    format();
 }
 
 function fuelConsumption() {
@@ -36,7 +35,6 @@ function fuelConsumption() {
     mpg.value = (ukGalToLtr(1) / milesToKM(1)) * kml.value;
     l100.value = 100 / kml.value;
     cost();
-    format();
 }
 
 function distanceTravelled() {
@@ -45,12 +43,15 @@ function distanceTravelled() {
 }
 
 function cost() {
-    const cent = Math.ceil(ltrsConsumed.value * priceLtr.value);        // rounded up to the nearest cent
+    const cent = Math.ceil(ltrsConsumed.value * priceLtr.value);                    // rounded up to the nearest cent
     journeyCost.value = cent / 100;
+    if (fueltype.value === "petrol") {CO2cost.value = ltrsConsumed.value * 2.31}    // https://www.clidapt.com/en/emission-factors/petrol
+    else  {CO2cost.value = ltrsConsumed.value * 2.66}                               // https://www.clidapt.com/en/emission-factors/diesel
+    format();
 }
 
 function format() {
-    const values = [distanceMiles, distanceKM, mpg, kml, l100, galsConsumed, ltrsConsumed];
+    const values = [distanceMiles, distanceKM, mpg, kml, l100, galsConsumed, ltrsConsumed, CO2cost];
     for (let i = 0; i < values.length; i++) {
         const a = Math.round(values[i].value * 1000000);
         values[i].value = a / 1000000;
@@ -101,13 +102,14 @@ ltrsConsumed.oninput = function(){
 currency.onchange = function(){
     document.getElementById("currencyLabel").innerText = currency.value;
 }
-
+fueltype.onchange = function(){cost()}
 priceLtr.oninput = function(){cost()}
 
-/* boken
 journeyCost.oninput = function(){
-    ltrsConsumed.value = journeyCost.value * (priceLtr.value / 100);
+    ltrsConsumed.value = journeyCost.value / (priceLtr.value / 100);
     galsConsumed.value = ltrToUkGal(ltrsConsumed.value);
-    distanceTravelled();
+
+    distanceKM.value = kml.value * ltrsConsumed.value;
+    distanceMiles.value = KMtoMiles(distanceKM.value);
+    format();
 }
-*/
